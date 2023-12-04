@@ -22,5 +22,6 @@ export const TryCatch = (controller) => async(req,res,next)=>{
 }  
 
 export const sendResponse = (status,message,res)=>{
+    console.log(`Responded with status code : ${status}`)
     res.status(status).json(message)
 }

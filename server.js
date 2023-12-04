@@ -23,7 +23,6 @@ const server = app.listen(port, () => {
 })
 app.use((req,res,next)=>{
     console.log(req.url)
-    console.log(res.status)
     next()
 })
 app.use('/admin', adminController)
