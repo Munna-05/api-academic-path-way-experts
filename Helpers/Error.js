@@ -25,3 +25,5 @@ export const sendResponse = (status,message,res)=>{
     console.log(`Responded with status code : ${status}`)
     res.status(status).json(message)
 }
+
+export const getError =(error)=> error.details[0].message

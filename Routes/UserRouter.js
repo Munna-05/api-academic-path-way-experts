@@ -2,6 +2,7 @@ import express from "express";
 const router = express.Router();
 
 import jwt from "jsonwebtoken";
+import { UserController } from "../Controllers/Users/UserController.js";
 
 const verifyToken = (req, res, next) => {
   // Get the token from the request header
@@ -28,4 +29,5 @@ const verifyToken = (req, res, next) => {
   );
 };
 
+router.post('/signup',UserController.signup)
 export default router;

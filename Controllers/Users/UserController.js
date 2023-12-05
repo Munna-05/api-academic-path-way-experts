@@ -1,12 +1,20 @@
-import { TryCatch } from "../../Helpers/Error.js";
+import { TryCatch, getError, sendResponse } from "../../Helpers/Error.js";
 import User from "../../Models/User.js";
+import bcrypt from "bcrypt";
+import { userValidation } from "./UserValidations.js";
 
 export const UserController = {
   signup: TryCatch(async (req, res) => {
-    try {
-      const { name, email, password, phone, address, pincode } = req.body;
-
-      // Check if the email is already in use
+    const { name, email, password, phone, address, pincode } = req.body;
+    console.log(
+      "🚀 ~ file: UserController.js:9 ~ signup:TryCatch ~  req.body;:",
+      req.body
+    );
+    const { error, value } = userValidation.validate(req.body);
+    if (error) {
+      console.log(getError(error));
+      sendResponse(200, { message: getError(error) }, res);
+    } else {
       const existingUser = await User.findOne({ email });
 
       if (existingUser) {
@@ -15,24 +23,28 @@ export const UserController = {
           .json({ message: "User already exists with this email." });
       }
 
-      // Hash the password before saving it
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      // Create a new user with the hashed password
-      const newUser = new User({
-        name,
-        email,
-        password: hashedPassword,
-        phone,
-        address,
-        pincode,
+      bcrypt.hash(password, 10, function (err, hash) {
+        // Store hash in your password DB.
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(hash);
+        }
       });
-      await newUser.save();
+      // Check if the email is already in use
 
-      res.status(201).json({ message: "User created successfully." });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Internal server error" });
+      //   // Create a new user with the hashed password
+      //   const newUser = new User({
+      //     name,
+      //     email,
+      //     password: hashedPassword,
+      //     phone,
+      //     address,
+      //     pincode,
+      //   });
+      //   await newUser.save();
+
+      //   res.status(201).json({ message: "User created successfully." });
     }
   }),
   login: TryCatch(async (req, res) => {
@@ -59,7 +71,7 @@ export const UserController = {
       });
 
       // Send the token in the response
-      res.status(200).json({ message: "Login successful.", token:token });
+      res.status(200).json({ message: "Login successful.", token: token });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Internal server error" });
