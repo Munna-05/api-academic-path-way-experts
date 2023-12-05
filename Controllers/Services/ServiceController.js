@@ -1,4 +1,4 @@
-import { TryCatch } from "../Helpers/Error.js";
+import { TryCatch } from "../../Helpers/Error.js";
 
 export const ServiceController = {
     addServices:TryCatch(async(req,res)=>{

@@ -1,4 +1,4 @@
-import { TryCatch } from "../Helpers/Error.js";
+import { TryCatch } from "../../Helpers/Error.js";
 
 export const CourseController = {
     createCourseDetails:TryCatch(async(req,res)=>{
