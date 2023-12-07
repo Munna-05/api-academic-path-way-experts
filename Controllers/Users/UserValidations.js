@@ -18,14 +18,11 @@ const userValidation = Joi.object({
     'any.required': 'Phone number is required.',
     'string.base': 'Phone number must be a string.',
   }),
-  address: Joi.string().required().messages({
-    'any.required': 'Address is required.',
-    'string.base': 'Address must be a string.',
+  dob: Joi.string().messages({
+    'any.required': 'Date of Birth is required.',
+    'string.base': 'Date of Birth is required.',
   }),
-  pincode: Joi.string().required().messages({
-    'any.required': 'Pincode is required.',
-    'string.base': 'Pincode must be a string.',
-  }),
+ 
 });
 
 export { userValidation };

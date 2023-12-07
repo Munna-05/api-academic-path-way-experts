@@ -30,4 +30,6 @@ const verifyToken = (req, res, next) => {
 };
 
 router.post('/signup',UserController.signup)
+router.post('/login',UserController.login)
+router.get('/user/:id',UserController.findUserById)
 export default router;

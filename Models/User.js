@@ -20,11 +20,15 @@ const User = mongoose.Schema(
     },
     address: {
       type: String,
-      required: true,
+    //   required: true,
     },
     pincode: {
       type: String,
-      required: true,
+    //   required: true,
+    },
+    dob:{
+        type:String,
+        required:true
     },
     isAdmin: {
       type: Boolean,
