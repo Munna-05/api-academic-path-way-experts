@@ -3,6 +3,7 @@ const router = express.Router();
 
 import jwt from "jsonwebtoken";
 import { UserController } from "../Controllers/Users/UserController.js";
+import { EnquiryController } from "../Controllers/Enquiry/EnquiryController.js";
 
 const verifyToken = (req, res, next) => {
   // Get the token from the request header
@@ -32,4 +33,5 @@ const verifyToken = (req, res, next) => {
 router.post('/signup',UserController.signup)
 router.post('/login',UserController.login)
 router.get('/user/:id',UserController.findUserById)
+router.post('/enquiry/:userid',EnquiryController.createEnquiry)
 export default router;
