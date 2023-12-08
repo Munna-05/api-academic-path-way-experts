@@ -1,4 +1,5 @@
 import { TryCatch, getError, sendResponse } from "../../Helpers/Error.js";
+import httpError from "../../Helpers/httpError.js";
 import Enquiry from "../../Models/Enquiry.js";
 import User from "../../Models/User.js";
 import enquiryValidation from "./EnquiryValidation.js";
@@ -6,7 +7,7 @@ import bcrypt from "bcrypt";
 
 export const EnquiryController = {
   getAllEnquiries: TryCatch(async (req, res) => {
-    const data = await Enquiry.find().catch((e) => console.log(e));
+    const data = await Enquiry.find().sort({createdAt:-1}).catch((e) => console.log(e));
     data
       ? sendResponse(200, data, res)
       : sendResponse(404, { message: "No data found" }, res);
@@ -26,10 +27,7 @@ export const EnquiryController = {
           const isUserExists = await User.findOne({
             $or: [{ email: value?.email }, { phone: value?.phone }],
           }).catch((e) => console.log(e));
-          console.log(
-            "🚀 ~ file: EnquiryController.js:29 ~ isUserExists:",
-            isUserExists
-          );
+         
 
           if (!isUserExists) {
             const data = {
@@ -91,14 +89,29 @@ export const EnquiryController = {
     }
   }),
   getAllEnquiriesByUser: TryCatch(async (req, res) => {
-    const user = await User.findById(req.params.id).catch((e) =>
+    const user = await User.findById(req.params.userid).catch((e) =>
       console.log(e)
     );
-    const data = await Enquiry.find({ userid: user?._id }).catch((e) =>
+    const data = await Enquiry.find({ userid: user?._id }).sort({createdAt:-1}).catch((e) =>
       console.log(e)
     );
     data
       ? sendResponse(200, data, res)
       : sendResponse(400, { message: "No data" }, res);
+  }),
+  updateEnquiry: TryCatch(async (req, res) => {
+    const { error, value } = enquiryValidation.validate(req.body);
+    if (error) {
+      throw new httpError(400, getError(error));
+    } else {
+      const updated = await Enquiry.findByIdAndUpdate(
+        req.params.id,
+        { value },
+        { new: true }
+      ).catch((e) => console.log(e));
+      updated
+        ? sendResponse(200, { message: "Enquiry Updated" }, res)
+        : sendResponse(400, { message: "Error Updating" }, res);
+    }
   }),
 };

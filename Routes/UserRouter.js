@@ -34,4 +34,5 @@ router.post('/signup',UserController.signup)
 router.post('/login',UserController.login)
 router.get('/user/:id',UserController.findUserById)
 router.post('/enquiry/:userid',EnquiryController.createEnquiry)
+router.get('/get-my-enquiries/:userid',EnquiryController.getAllEnquiriesByUser)
 export default router;
