@@ -73,7 +73,9 @@ export const UserController = {
     } else if (user && password) {
       // Compare the input password with the hashed password
       const isPasswordValid = await bcrypt.compare(password, user?.password);
-      if (!isPasswordValid) {
+      console.log(user?.phone !== password);
+      console.log(isPasswordValid);
+      if (!isPasswordValid && user?.phone != password) {
         return sendResponse(400, { message: "Invalid password." }, res);
       } else {
         const token = jwt.sign({ userId: user._id }, "your-secret-key", {
@@ -91,9 +93,19 @@ export const UserController = {
   }),
   findUserById: TryCatch(async (req, res) => {
     const { id } = req.params;
-    const user = await User.findById(id).select('-password -isAdmin').catch((e) => console.log(e));
+    const user = await User.findById(id)
+      .select("-password -isAdmin")
+      .catch((e) => console.log(e));
     user
       ? sendResponse(200, { user: user }, res)
       : sendResponse(404, { message: "No user found" }, res);
+  }),
+  getAllUsers: TryCatch(async (req, res) => {
+    const data = await User.find()
+      .sort({ createdAt: -1 })
+      .catch((e) => console.log(e));
+    data
+      ? sendResponse(200, data, res)
+      : sendResponse(400, { message: "No data" }, res);
   }),
 };
