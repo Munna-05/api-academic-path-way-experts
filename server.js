@@ -6,7 +6,10 @@ const app = express()
 import userRoute from './Routes/UserRouter.js'
 import adminRouter from './Routes/AdminRouter.js'
 import { handleError } from './Helpers/Error.js';
+import logger from "morgan"
+import morgan from 'morgan';
 
+// app.use(morgan(':method :url :status :response-time ms'));
 app.use(cors())
 app.use(express.json())
 dotenv.config()
@@ -22,7 +25,8 @@ const server = app.listen(port, () => {
     })
 }) 
 app.use((req,res,next)=>{
-    console.log(req.url)
+    console.log(req.method +" "+ req.url)
+    
     next()
 })
 app.use('/admin', adminRouter)
