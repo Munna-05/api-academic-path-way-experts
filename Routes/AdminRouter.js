@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import { EnquiryController } from "../Controllers/Enquiry/EnquiryController.js";
 import { UserController } from "../Controllers/Users/UserController.js";
 import { ServiceController } from "../Controllers/Services/ServiceController.js";
+import { ArticleController } from "../Controllers/Blogs/ArticleController.js";
 
 const verifyToken = (req, res, next) => {
   // Get the token from the request header
@@ -42,5 +43,9 @@ router
   .post("/services", ServiceController.addServices)
   .get("/services", ServiceController.getAllServices)
   .delete("/services/:id", ServiceController.deleteServices);
+
+router
+  .post("/blog", ArticleController.createArtcle)
+  .get('/blog',ArticleController.getAllArticles);
 
 export default router;
