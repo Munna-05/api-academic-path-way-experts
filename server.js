@@ -25,7 +25,7 @@ const server = app.listen(port, () => {
     })
 }) 
 app.use((req,res,next)=>{
-    console.log(req.method +" "+ req.url)
+    console.log('\x1b[32m%s\x1b[0m',req.method +" "+ req.url)
     
     next()
 })
