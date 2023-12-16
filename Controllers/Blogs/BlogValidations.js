@@ -5,6 +5,10 @@ const blogValidation = Joi.object({
     'any.required': 'Title is required.',
     'string.base': 'Title must be a string.',
   }),
+  description: Joi.string().required().messages({
+    'any.required': 'A short Description is required.',
+    'string.base': 'Title must be a string.',
+  }),
   content: Joi.string().required().messages({
     'any.required': 'Content is required.',
     'string.base': 'Content must be a string.',

@@ -8,6 +8,7 @@ import { EnquiryController } from "../Controllers/Enquiry/EnquiryController.js";
 import { UserController } from "../Controllers/Users/UserController.js";
 import { ServiceController } from "../Controllers/Services/ServiceController.js";
 import { ArticleController } from "../Controllers/Blogs/ArticleController.js";
+import multer from "multer";
 
 const verifyToken = (req, res, next) => {
   // Get the token from the request header
@@ -34,6 +35,32 @@ const verifyToken = (req, res, next) => {
   );
 };
 
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // Set the destination folder for uploaded files
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)); // Set the file name with a timestamp and the original extension
+  },
+});
+
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB file size limit
+  fileFilter: function (req, file, cb) {
+    // Check if the uploaded file is an image
+    const allowedFileTypes = /jpeg|jpg|png|gif/;
+    const extname = allowedFileTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedFileTypes.test(file.mimetype);
+    if (extname && mimetype) {
+      return cb(null, true);
+    } else {
+      cb(new Error('Only images are allowed!'));
+    }
+  },
+});
 //login
 router.post("/login-admin", adminController.login);
 router.post("/create-admin", adminController.createAdmin);
@@ -45,7 +72,7 @@ router
   .delete("/services/:id", ServiceController.deleteServices);
 
 router
-  .post("/blog", ArticleController.createArtcle)
+  .post("/blog",upload.single('image'),ArticleController.createArtcle)
   .get('/blog',ArticleController.getAllArticles);
 
 export default router;

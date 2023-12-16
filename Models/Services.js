@@ -9,6 +9,10 @@ const serviceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image:{
+    type:String,
+    required:true
+  },
   countries: [String], // Array of countries where the service is offered
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,

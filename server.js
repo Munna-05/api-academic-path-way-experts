@@ -29,6 +29,16 @@ app.use((req,res,next)=>{
     
     next()
 })
+
+app.use((err, req, res, next) => {
+    if (err instanceof multer.MulterError) {
+      res.status(400).send('File size exceeds the limit (2MB) or invalid file type!');
+    } else {
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  
 app.use('/admin', adminRouter)
 app.use('/', userRoute)    
 app.use(handleError)
+app.use('/uploads', express.static('uploads'));

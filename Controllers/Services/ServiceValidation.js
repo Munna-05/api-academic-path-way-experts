@@ -9,6 +9,10 @@ const serviceValidation = Joi.object({
     'any.required': 'Description is required.',
     'string.base': 'Description must be a string.',
   }),
+  image: Joi.string().required().messages({
+    'any.required': 'Image is required.',
+    'string.base': 'image must be a string.',
+  }),
   countries: Joi.array().items(Joi.string()).messages({
     'array.base': 'Countries must be an array.',
     'array.includesRequiredUnknowns': 'Countries array must not include unknown values.',
