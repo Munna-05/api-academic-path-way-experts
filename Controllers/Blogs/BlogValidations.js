@@ -17,7 +17,7 @@ const blogValidation = Joi.object({
     'any.required': 'Author is required.',
     'string.base': 'Author must be a string.',
   }),
-  images: Joi.string().messages({
+  image: Joi.string().messages({
     'string.base': 'Image Required.',
   }),
 });

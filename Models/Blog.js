@@ -18,7 +18,7 @@ const BlogSchema = new mongoose.Schema({
     ref: 'User', // Reference to the User model
     required: true,
   },
-  images: {type:String}, // Array of image URLs associated with the blog post
+  image: {type:String}, // Array of image URLs associated with the blog post
   
 },{timestamps:true});
 

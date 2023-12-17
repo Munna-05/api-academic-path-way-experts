@@ -4,6 +4,7 @@ const router = express.Router();
 import jwt from "jsonwebtoken";
 import { UserController } from "../Controllers/Users/UserController.js";
 import { EnquiryController } from "../Controllers/Enquiry/EnquiryController.js";
+import { ArticleController } from "../Controllers/Blogs/ArticleController.js";
 
 const verifyToken = (req, res, next) => {
   // Get the token from the request header
@@ -35,4 +36,5 @@ router.post('/login',UserController.login)
 router.get('/user/:id',UserController.findUserById)
 router.post('/enquiry/:userid',EnquiryController.createEnquiry)
 router.get('/get-my-enquiries/:userid',EnquiryController.getAllEnquiriesByUser)
+router.get('/blogs',ArticleController.getAllArticles)
 export default router;
