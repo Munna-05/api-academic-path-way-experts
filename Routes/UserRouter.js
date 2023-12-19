@@ -5,6 +5,8 @@ import jwt from "jsonwebtoken";
 import { UserController } from "../Controllers/Users/UserController.js";
 import { EnquiryController } from "../Controllers/Enquiry/EnquiryController.js";
 import { ArticleController } from "../Controllers/Blogs/ArticleController.js";
+import { ServiceController } from "../Controllers/Services/ServiceController.js";
+import { OpeningsController } from "../Controllers/Jobs/OpeningsController.js";
 
 const verifyToken = (req, res, next) => {
   // Get the token from the request header
@@ -31,10 +33,19 @@ const verifyToken = (req, res, next) => {
   );
 };
 
-router.post('/signup',UserController.signup)
-router.post('/login',UserController.login)
-router.get('/user/:id',UserController.findUserById)
-router.post('/enquiry/:userid',EnquiryController.createEnquiry)
-router.get('/get-my-enquiries/:userid',EnquiryController.getAllEnquiriesByUser)
-router.get('/blogs',ArticleController.getAllArticles)
+router.post("/signup", UserController.signup);
+router.post("/login", UserController.login);
+router.get("/user/:id", UserController.findUserById);
+router.post("/enquiry/:userid", EnquiryController.createEnquiry);
+
+router.get(
+  "/get-my-enquiries/:userid",
+  EnquiryController.getAllEnquiriesByUser
+);
+
+router
+  .get("/blogs", ArticleController.getAllArticles)
+  
+router.get("/services", ServiceController.getAllServices);
+router.get("/jobs", OpeningsController.getAllOpenings);
 export default router;

@@ -27,5 +27,15 @@ export const ArticleController = {
   }),
   getArticlesById: TryCatch(async (req, res) => {}),
   editArticle: TryCatch(async (req, res) => {}),
-  deleteArticle: TryCatch(async (req, res) => {}),
+  deleteArticle: TryCatch(async (req, res) => {
+    const remove = await Blog.findByIdAndDelete(req.params.id).catch((e) =>
+      console.log(e)
+    );
+    setTimeout(() => {
+      remove
+      ? sendResponse(200, { message: "Blog Removed" }, res)
+      : sendResponse(400, { message: "Blog remove failed" }, res);
+      
+    }, 1000);
+  }),
 };

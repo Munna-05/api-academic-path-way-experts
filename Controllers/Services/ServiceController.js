@@ -28,7 +28,10 @@ export const ServiceController = {
       ? sendResponse(200, data, res)
       : sendResponse(400, { message: "No data" }, res);
   }),
-  getServiceById: TryCatch(async (req, res) => {}),
+  getServiceById: TryCatch(async (req, res) => {
+    const data = await Services.findById(req.params.id).catch(e=>console.log(e))
+    data?sendResponse(200,{data},res):sendResponse(400,{message:"No data"},res)
+  }),
   editServices: TryCatch(async (req, res) => {}),
   deleteServices: TryCatch(async (req, res) => {
     const deleteService = await Services.findByIdAndDelete(req.params.id).catch(
