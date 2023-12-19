@@ -15,10 +15,17 @@ const JobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    key_res: [String], // Array of benefits offered by the job
+    key_res: {
+      type:Array,
+      required:true
+    }, // Array of benefits offered by the job
     type: {
       type: String,
       enum: ["Full-time", "Part-time", "Contract", "Freelance", "Internship"],
+    },
+    icon:{
+      type:String,
+      required:true
     },
     experienceLevel: {
       type: String,
@@ -30,6 +37,7 @@ const JobSchema = new mongoose.Schema(
       ref: "User", // Reference to the User model representing the job poster
       required: true,
     },
+
     createdAt: {
       type: Date,
       default: Date.now,
