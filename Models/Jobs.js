@@ -10,7 +10,10 @@ const JobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    location: String,
+    location: {
+      type:String,
+      required:true
+    },
     description: {
       type: String,
       required: true,
@@ -31,20 +34,11 @@ const JobSchema = new mongoose.Schema(
       type: String,
       enum: ["Entry Level", "Mid Level", "Senior Level"],
     },
-    applyLink: String, // URL to apply for the job
+    // applyLink: String, // URL to apply for the job
     postedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User", // Reference to the User model representing the job poster
       required: true,
-    },
-
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
     },
   },
   { timestamps: true }

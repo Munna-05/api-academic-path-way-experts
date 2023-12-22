@@ -100,7 +100,7 @@ export const EnquiryController = {
       : sendResponse(400, { message: "No data" }, res);
   }),
   updateEnquiry: TryCatch(async (req, res) => {
-    const { error, value } = enquiryValidation.validate(req.body);
+    const { error, value } = enquiryValidation.validate(req.body); 
     if (error) {
       throw new httpError(400, getError(error));
     } else {

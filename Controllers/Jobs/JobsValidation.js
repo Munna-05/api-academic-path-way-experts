@@ -14,10 +14,10 @@ const jobValidation = Joi.object({
     'any.required': 'Description is required.',
     'string.base': 'Description must be a string.',
   }),
-  key_res: Joi.array().items(Joi.string()), // Assuming key_res is an array of strings
+  key_res: Joi.array(), // Assuming key_res is an array of strings
   type: Joi.string().valid("Full-time", "Part-time", "Contract", "Freelance", "Internship"),
   experienceLevel: Joi.string().valid("Entry Level", "Mid Level", "Senior Level"),
-  applyLink: Joi.string(), // Assuming applyLink is a string (URL)
+  icon: Joi.string(), // Assuming applyLink is a string (URL)
   postedBy: Joi.string().hex().length(24).required().messages({
     'any.required': 'Posted by is required.',
     'string.base': 'Invalid Posted by ID format.',

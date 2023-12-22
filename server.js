@@ -37,7 +37,7 @@ app.use((err, req, res, next) => {
       res.status(500).send('Internal Server Error');
     }
   });
-  
+
 app.use('/admin', adminRouter)
 app.use('/', userRoute)    
 app.use(handleError)

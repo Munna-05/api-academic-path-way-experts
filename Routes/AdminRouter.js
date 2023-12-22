@@ -9,6 +9,7 @@ import { UserController } from "../Controllers/Users/UserController.js";
 import { ServiceController } from "../Controllers/Services/ServiceController.js";
 import { ArticleController } from "../Controllers/Blogs/ArticleController.js";
 import multer from "multer";
+import { OpeningsController } from "../Controllers/Jobs/OpeningsController.js";
 
 const verifyToken = (req, res, next) => {
   // Get the token from the request header
@@ -76,4 +77,7 @@ router
   .get("/blog", ArticleController.getAllArticles)
   .delete("/blog/:id", ArticleController.deleteArticle);
 
+router
+  .post("/jobs", OpeningsController.createNewOpening)
+  .get("/jobs", OpeningsController?.getAllOpenings);
 export default router;
