@@ -10,6 +10,7 @@ import { ServiceController } from "../Controllers/Services/ServiceController.js"
 import { ArticleController } from "../Controllers/Blogs/ArticleController.js";
 import multer from "multer";
 import { OpeningsController } from "../Controllers/Jobs/OpeningsController.js";
+import { CourseController } from "../Controllers/Course/CourseController.js";
 
 const verifyToken = (req, res, next) => {
   // Get the token from the request header
@@ -80,4 +81,9 @@ router
 router
   .post("/jobs", OpeningsController.createNewOpening)
   .get("/jobs", OpeningsController?.getAllOpenings);
+
+router
+  .get("/courses", CourseController.getAllCourses)
+  .post(CourseController.createCourseDetails)
+  .delete(CourseController.deleteCourse)
 export default router;
