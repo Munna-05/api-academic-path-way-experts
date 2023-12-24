@@ -13,9 +13,9 @@ const courseValidation = Joi.object({
     'any.required': 'Please provide the course duration.',
     'number.base': 'Course duration must be a number.',
   }),
-  eligibility: Joi.string().required().messages({
-    'any.required': 'Please specify the course eligibility.',
-    'string.empty': 'Course eligibility cannot be empty.',
+  country: Joi.string().required().messages({
+    'any.required': 'Please specify the Country name.',
+    'string.empty': 'Country name cannot be empty.',
   }),
   description: Joi.string().required().messages({
     'any.required': 'Please provide a course description.',

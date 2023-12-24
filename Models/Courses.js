@@ -16,9 +16,13 @@ const courseSchema = new mongoose.Schema({
   },
   eligibility: {
     type: String,
-    required: true,
+    // required: true,
   },
   description: {
+    type: String,
+    required: true,
+  },
+  country: {
     type: String,
     required: true,
   },

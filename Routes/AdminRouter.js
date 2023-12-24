@@ -84,6 +84,6 @@ router
 
 router
   .get("/courses", CourseController.getAllCourses)
-  .post(CourseController.createCourseDetails)
+  .post("/courses",CourseController.createCourseDetails)
   .delete(CourseController.deleteCourse)
 export default router;

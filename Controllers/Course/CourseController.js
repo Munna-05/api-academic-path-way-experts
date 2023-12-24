@@ -4,11 +4,19 @@ import courseValidation from "./CourseValidation.js";
 
 export const CourseController = {
   createCourseDetails: TryCatch(async (req, res) => {
-    const { error, value } = courseValidation(req.body);
+    const data = {
+        name: req.body?.Name,
+        level: req.body.courseType,
+        duration: req.body.Duration,
+        description: req.body.Description,
+        country:req.body.country
+      };
+    const { error, value } = courseValidation.validate(data);
 
     if (error) {
       sendResponse(400, { message: getError(error) }, res);
     } else {
+     
       const newCourse = new Courses(value);
       const save = await newCourse.save();
 
