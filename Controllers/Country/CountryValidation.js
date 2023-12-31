@@ -6,12 +6,6 @@ const countryValidation = Joi.object({
     .messages({
       'any.required': 'Please provide a country name.',
       'string.empty': 'Country name cannot be empty.',
-    })
-    .min(3) // Custom validation: Minimum length of 3 characters
-    .max(50) // Custom validation: Maximum length of 50 characters,
-    .messages({
-      'string.min': 'Country name must be at least {#limit} characters long.',
-      'string.max': 'Country name cannot exceed {#limit} characters.',
     }),
   description: Joi.string()
     .required()
@@ -25,8 +19,7 @@ const countryValidation = Joi.object({
       'string.min': 'Country description must be at least {#limit} characters long.',
       'string.max': 'Country description cannot exceed {#limit} characters.',
     }),
-  createdAt: Joi.date().default(new Date(), 'current date'),
-  updatedAt: Joi.date().default(new Date(), 'current date'),
+    image:Joi.string().required().messages({'any.required':'Please upload an image of country'})
 });
 
 export default countryValidation;
