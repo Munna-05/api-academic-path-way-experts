@@ -7,6 +7,7 @@ import { EnquiryController } from "../Controllers/Enquiry/EnquiryController.js";
 import { ArticleController } from "../Controllers/Blogs/ArticleController.js";
 import { ServiceController } from "../Controllers/Services/ServiceController.js";
 import { OpeningsController } from "../Controllers/Jobs/OpeningsController.js";
+import { CourseController } from "../Controllers/Course/CourseController.js";
 
 const verifyToken = (req, res, next) => {
   // Get the token from the request header
@@ -43,9 +44,14 @@ router.get(
   EnquiryController.getAllEnquiriesByUser
 );
 
-router
-  .get("/blogs", ArticleController.getAllArticles)
-  
+router.get("/blogs", ArticleController.getAllArticles);
+
 router.get("/services", ServiceController.getAllServices);
-router.get("/jobs", OpeningsController.getAllOpenings);
+router
+  .get("/jobs", OpeningsController.getAllOpenings)
+  .post("/jobs", OpeningsController.applyJob)
+  .delete(OpeningsController.deleteOpenings);
+
+router.get("/courses", CourseController.getAllCourses);
+
 export default router;

@@ -67,6 +67,7 @@ const upload = multer({
 router.post("/login-admin", adminController.login);
 router.post("/create-admin", adminController.createAdmin);
 router.get("/get-all-enquires", EnquiryController.getAllEnquiries);
+router.post('/reply/:id',EnquiryController.updateEnquiry)
 router.get("/get-all-users", UserController.getAllUsers);
 router
   .post("/services", ServiceController.addServices)
@@ -85,5 +86,5 @@ router
 router
   .get("/courses", CourseController.getAllCourses)
   .post("/courses",CourseController.createCourseDetails)
-  .delete(CourseController.deleteCourse)
+  .delete("/courses",CourseController.deleteCourse)
 export default router;

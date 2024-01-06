@@ -100,18 +100,16 @@ export const EnquiryController = {
       : sendResponse(400, { message: "No data" }, res);
   }),
   updateEnquiry: TryCatch(async (req, res) => {
-    const { error, value } = enquiryValidation.validate(req.body); 
-    if (error) {
-      throw new httpError(400, getError(error));
-    } else {
+   
+   
       const updated = await Enquiry.findByIdAndUpdate(
         req.params.id,
-        { value },
+        { reply:req.body.reply },
         { new: true }
       ).catch((e) => console.log(e));
       updated
         ? sendResponse(200, { message: "Enquiry Updated" }, res)
         : sendResponse(400, { message: "Error Updating" }, res);
-    }
+    
   }),
 };
